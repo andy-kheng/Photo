@@ -26,10 +26,11 @@
       "method": "POST",
       "path": "/",
       "callback": "upload.create"
-    }, {
-      "method": "GET",
-      "path": "/:id",
-      "callback": "upload.get"
+    },
+    {
+      "method": "POST",
+      "path": "/big",
+      "callback": "upload.createBig"
     }]
   }]
 }

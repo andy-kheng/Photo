@@ -14,6 +14,7 @@ import formidable from 'formidable'
 import appConfig from '../config/app'
 import db from './database'
 import router from './router'
+import response from '../response'
 
 const app = new Koa()
 const env = appConfig.env
@@ -52,7 +53,7 @@ app.use(convert(body({
   IncomingForm: form
 })))
 app.use(respond())
-
+app.use(response())
 pug.use(app)
 router.use(app)
 

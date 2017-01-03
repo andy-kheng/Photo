@@ -24,6 +24,7 @@
     "formidable": "^1.0.17",
     "gm": "^1.23.0",
     "indicative": "^2.2.1",
+    "jimp": "^0.2.27",
     "jsonwebtoken": "^7.1.9",
     "koa": "^2.0.0-alpha.7",
     "koa-better-body": "^3.0.2",
@@ -45,7 +46,8 @@
     "shortid": "^2.2.6",
     "slug": "^0.9.1",
     "socket.io": "^1.4.8",
-    "socket.io-redis": "^1.1.1"
+    "socket.io-redis": "^1.1.1",
+    "validatorjs": "^3.11.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.0.0",
