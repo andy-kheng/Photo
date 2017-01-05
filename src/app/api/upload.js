@@ -1,41 +1,36 @@
 import Promise from 'bluebird'
-// import gm from 'gm'
+import fs from 'fs'
+import gm from 'gm'
 import path from 'path'
-// const jimp = Promise.promisifyAll(require('jimp'))
-const gm = Promise.promisifyAll(require('gm'))
+import validation from './validations/upload'
+
+Promise.promisifyAll(gm.prototype)
 
 export default {
   async create(ctx) {
-    const body = ctx.request.files
-    if (!body) return ctx.bad({ message: 'Validation failed' })
-    if (body == '') return ctx.bad({ message: 'Validation failed' })
-    const filePath = body[0].path
-    const pathImage = path.resolve(__dirname, '../../public/uploads/thumbnail-' + path.basename(filePath))
-    // const image = await jimp.read(filePath)
-    // image.quality(80).write(pathImage)
-    gm(filePath)
-      .quality(80)
-      .write(pathImage, function (err) {
-        if (!err) console.log('done')
-      })
-    let response = { original: filePath, thumbnail: pathImage }
-    ctx.ok(response)
-  },
-  async createBig(ctx) {
-    const body = ctx.request.files
-    if (!body) return ctx.bad({ message: 'Validation failed' })
-    if (body == '') return ctx.bad({ message: 'Validation failed' })
-    const filePath = body[0].path
+    const file = ctx.request.files
+    const { height, width } = ctx.request.fields
+    if (!file.length) return ctx.bad({ message: 'file is required' })
+
+    const errors = await validation.validateUpload(ctx.request.fields)
+    if (errors) return ctx.bad(errors, 'Validation failed')
+
+    const filePath = file[0].path
     const pathImage = path.resolve(__dirname, '../../public/uploads/scaled-' + path.basename(filePath))
+    const pathImage2 = path.resolve(__dirname, '../../public/uploads/scaled-' + Math.random() + path.basename(filePath))
+    
 
-    // const image = await gm(filePath)
-    // image.quality(80).write(pathImage)
+    await gm(filePath)
+      .scale(width, height, '!')
+      .writeAsync(pathImage)
 
+    var writeStream = fs.createWriteStream(pathImage2)
     gm(filePath)
-      .scale(9933, 14043, '!')
-      .write(pathImage, function (err) {
-        if (!err) console.log('done')
-      })
+      .resize('200', '200')
+      .stream()
+      .pipe(writeStream)
+
+
     let response = { original: filePath, scaled: pathImage }
     ctx.ok(response)
   }

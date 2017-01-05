@@ -26,11 +26,6 @@
       "method": "POST",
       "path": "/",
       "callback": "upload.create"
-    },
-    {
-      "method": "POST",
-      "path": "/big",
-      "callback": "upload.createBig"
     }]
   }]
 }

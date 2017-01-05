@@ -8,11 +8,11 @@ import respond from 'koa-respond'
 import serve from 'koa-static'
 import Koa from 'koa'
 import Pug from 'koa-pug'
-import formidable from 'formidable'
 // import multer from 'koa-multer'
 
 import appConfig from '../config/app'
 import db from './database'
+import form from './form'
 import router from './router'
 import response from '../response'
 
@@ -23,25 +23,6 @@ const pug = new Pug({
   debug: env === 'development',
   noCache: env === 'development'
 })
-
-var form = new formidable.IncomingForm()
-
-form.keepExtensions = true
-form.encoding = 'utf-8'
-form.uploadDir = path.resolve(__dirname, '../public/uploads')
-
-// form.on('field', function (name, value) {
-//   console.log(name, value) // name is user, value is test
-// })
-// form.on('file', function (name, file) {
-//   console.log(name) // => foo
-//   console.log(file) // => README.md
-//   console.log(file.path) // => full filepath to where is uploaded
-// })
-// form.on('end', function (name, file) {
-//   console.log('finish parse')
-// })
-
 
 app.context.db = db
 app.env = env
