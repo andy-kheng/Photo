@@ -42,6 +42,7 @@
     "later": "^1.2.0",
     "lodash": "^4.16.3",
     "mysql": "^2.11.1",
+    "progress-stream": "^1.2.0",
     "sequelize": "^3.24.3",
     "shortid": "^2.2.6",
     "slug": "^0.9.1",
