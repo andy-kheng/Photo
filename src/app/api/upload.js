@@ -18,7 +18,6 @@ export default {
     const filePath = file[0].path
     const pathImage = path.resolve(__dirname, '../../public/uploads/scaled-' + path.basename(filePath))
     const pathImage2 = path.resolve(__dirname, '../../public/uploads/scaled-' + Math.random() + path.basename(filePath))
-    
 
     await gm(filePath)
       .scale(width, height, '!')

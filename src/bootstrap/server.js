@@ -19,7 +19,6 @@ export const io = new SocketIo(server)
 
 websocket.use(io)
 
-
 co(function* () {
   const sync = yield db.sync({
     force: true,
