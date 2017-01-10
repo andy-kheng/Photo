@@ -22,6 +22,7 @@ export default {
 
     await gm(filePath)
       .scale(width, height, '!')
+      // .quality(100)
       .writeAsync(pathImage)
     let response = { original: 'http://192.168.17.89:3000/uploads/' + path.basename(filePath), scaled: 'http://192.168.17.89:3000/uploads/' + path.basename(pathImage) }
     ctx.ok(response)
