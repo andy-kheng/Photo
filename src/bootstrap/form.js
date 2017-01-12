@@ -17,7 +17,7 @@ form.on('progress', function (bytesReceived, bytesExpected) {
     bytesReceived,
     bytesExpected
   })
-  if (bytesReceived === bytesExpected) console.log('-------------- upload success --------------')
+  if (bytesReceived === 2) console.log('-------------- upload success --------------')
 })
 
 export default form

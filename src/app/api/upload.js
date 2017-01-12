@@ -4,12 +4,13 @@ import gm from 'gm'
 import path from 'path'
 // import progress from 'progress-stream'
 import validation from './validations/upload'
-// import { io } from '../../bootstrap/server'
+import { io } from '../../bootstrap/server'
 
 Promise.promisifyAll(gm.prototype)
 
 export default {
   async create(ctx) {
+    const urlImage = ctx.request.headers.host + '/uploads/'
     const file = ctx.request.files
     const { height, width } = ctx.request.fields
     if (!file.length) return ctx.bad({ message: 'file is required' })
@@ -24,7 +25,7 @@ export default {
       .scale(width, height, '!')
       // .quality(100)
       .writeAsync(pathImage)
-    let response = { original: 'http://192.168.17.89:3000/uploads/' + path.basename(filePath), scaled: 'http://192.168.17.89:3000/uploads/' + path.basename(pathImage) }
+    let response = { original: urlImage + path.basename(filePath), scaled: urlImage + path.basename(pathImage) }
     ctx.ok(response)
 
     // var stat = fs.statSync(filePath)
